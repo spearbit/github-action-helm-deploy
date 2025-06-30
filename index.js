@@ -55,6 +55,7 @@ const run = async () => {
     let imageFields = parseJsonList(core.getInput("image-fields"));
     const tag = core.getInput("tag");
     let tagFields = parseJsonList(core.getInput("tag-fields"));
+    const createNamespace = core.getInput("create-namespace") !== "false"; // default to true
 
     core.debug(`param: release = "${release}"`);
     core.debug(`param: namespace = "${namespace}"`);
@@ -72,6 +73,7 @@ const run = async () => {
     core.debug(`param: imageFields = "${JSON.stringify(imageFields)}"`)
     core.debug(`param: tag = "${tag}"`);
     core.debug(`param: tagFields = "${JSON.stringify(tagFields)}"`)
+    core.debug(`param: createNamespace = "${createNamespace}"`);
 
     const args = [
       "upgrade",
@@ -82,6 +84,8 @@ const run = async () => {
       `--namespace=${namespace}`,
       "--dependency-update"
     ];
+
+    if (createNamespace) args.push("--create-namespace");
 
     // Per https://helm.sh/docs/faq/#xdg-base-directory-support
     process.env.XDG_DATA_HOME = "/root/.local/share";

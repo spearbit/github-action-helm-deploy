@@ -53,6 +53,10 @@ inputs:
   tag-fields:
     description: Fields to insert the image tags in. Expects JSON encoded array or a string. Defaults to "image.tag".
     required: false
+  create-namespace:
+    description: 'Create the release namespace if not present'
+    required: false
+    default: 'true'
 runs:
   using: docker
   image: Dockerfile
