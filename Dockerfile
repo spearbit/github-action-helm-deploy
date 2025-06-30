@@ -14,7 +14,10 @@ RUN apk add --no-cache ca-certificates \
     mv linux-amd64/helm /usr/bin/helm && \
     chmod +x /usr/bin/helm && \
     rm -rf linux-amd64 && \
-    helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5
+    helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5 && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install
 
 COPY . /usr/src
 
