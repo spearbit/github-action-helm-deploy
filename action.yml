@@ -55,7 +55,7 @@ inputs:
     required: false
 runs:
   using: docker
-  image: Dockerfile
+  image: ghcr.io/spearbit/github-action-helm-deploy:20250630
 branding:
   icon: anchor
   color: blue
