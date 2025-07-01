@@ -56,6 +56,7 @@ const run = async () => {
     const tag = core.getInput("tag");
     let tagFields = parseJsonList(core.getInput("tag-fields"));
     const createNamespace = core.getInput("create-namespace") !== "false"; // default to true
+    const useWerf = core.getInput("werf") === "true"; // default to false
 
     core.debug(`param: release = "${release}"`);
     core.debug(`param: namespace = "${namespace}"`);
@@ -74,6 +75,7 @@ const run = async () => {
     core.debug(`param: tag = "${tag}"`);
     core.debug(`param: tagFields = "${JSON.stringify(tagFields)}"`)
     core.debug(`param: createNamespace = "${createNamespace}"`);
+    core.debug(`param: useWerf = "${useWerf}"`);
 
     const args = [
       "upgrade",
@@ -145,12 +147,13 @@ const run = async () => {
 
     if (task === "remove") {
       // Delete the deployment
-      await exec.exec("helm", ["delete", "-n", namespace, release], {
+      const deleteArgs = ["delete", "-n", namespace, release];
+      await exec.exec(useWerf ? "werf" : "helm", useWerf ? ["helm", ...deleteArgs] : deleteArgs, {
         ignoreReturnCode: true,
       });
     } else {
       // Execute the deployment
-      await exec.exec("helm", args);
+      await exec.exec(useWerf ? "werf" : "helm", useWerf ? ["helm", ...args] : args);
     }
   } catch (err) {
     core.error(err);

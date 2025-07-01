@@ -57,11 +57,15 @@ inputs:
     description: 'Create the release namespace if not present'
     required: false
     default: 'true'
+  werf:
+    description: Use werf as a wrapper around helm commands
+    required: false
+    default: 'false'
 runs:
   using: docker
-  image: Dockerfile
+  #image: Dockerfile
   # Use pre-built image
-  # image: docker://ghcr.io/spearbit/github-action-helm-deploy:20250630
+  image: docker://ghcr.io/spearbit/github-action-helm-deploy:20250701r1
 branding:
   icon: anchor
   color: blue
