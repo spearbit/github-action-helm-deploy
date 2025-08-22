@@ -66,7 +66,7 @@ runs:
   #image: Dockerfile
   # Use pre-built image
   # TODO: use the image from the public ECR with `spearbit/` alias when available
-  image: docker://public.ecr.aws/x2b6c6z7/github-actions/helm-deploy:20250701r1
+  image: docker://public.ecr.aws/spearbit/github-actions/helm-deploy:20250701r1
 branding:
   icon: anchor
   color: blue
